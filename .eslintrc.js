@@ -12,6 +12,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier', // 末尾に記載. 他とformat rulesが競合した場合に上書く
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
