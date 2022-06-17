@@ -38,9 +38,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': [
         'error',
     ],
-    "object-curly-newline": ["error", {
-        "multiline": true ,
-    }],
     "react/function-component-definition": [
         2,
         { "namedComponents": "arrow-function" }
