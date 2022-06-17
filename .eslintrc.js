@@ -12,6 +12,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier', // 末尾に記載. 他とformat rulesが競合した場合に上書く
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -37,9 +38,6 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': [
         'error',
     ],
-    "object-curly-newline": ["error", {
-        "multiline": true ,
-    }],
     "react/function-component-definition": [
         2,
         { "namedComponents": "arrow-function" }
