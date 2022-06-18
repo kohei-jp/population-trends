@@ -1,9 +1,9 @@
 module.exports = {
-    env: {
+  env: {
     browser: true,
     es2021: true,
-    },
-    extends: [
+  },
+  extends: [
     'plugin:react/recommended',
     'airbnb',
     'airbnb/hooks',
@@ -13,105 +13,97 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'prettier', // 末尾に記載. 他とformat rulesが競合した場合に上書く
-    ],
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
     ecmaFeatures: {
-        jsx: true,
+      jsx: true,
     },
     ecmaVersion: 12,
     project: './tsconfig.eslint.json',
     sourceType: 'module',
     tsconfigRootDir: __dirname,
-    },
-    plugins: [
-    '@typescript-eslint',
-    'import',
-    'jsx-a11y',
-    'react',
-    'react-hooks',
-    ],
-    root: true,
-    rules: {
+  },
+  plugins: ['@typescript-eslint', 'import', 'jsx-a11y', 'react', 'react-hooks'],
+  root: true,
+  rules: {
     // occur error in `import React from 'react'` with react-scripts 4.0.1
     'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': [
-        'error',
-    ],
-    "react/function-component-definition": [
-        2,
-        { "namedComponents": "arrow-function" }
-    ],
+    '@typescript-eslint/no-use-before-define': ['error'],
     'lines-between-class-members': [
-        'error',
-        'always',
-        {
+      'error',
+      'always',
+      {
         exceptAfterSingleLine: true,
-        },
+      },
     ],
     'no-void': [
-        'error',
-        {
-            allowAsStatement: true,
-        },
+      'error',
+      {
+        allowAsStatement: true,
+      },
     ],
     'padding-line-between-statements': [
-        'error',
-        {
+      'error',
+      {
         blankLine: 'always',
         prev: '*',
         next: 'return',
-        },
+      },
     ],
     '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-        'vars': 'all',
-        'args': 'after-used',
-        'argsIgnorePattern': '_',
-        'ignoreRestSiblings': false,
-        'varsIgnorePattern': '_',
-        },
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        argsIgnorePattern: '_',
+        ignoreRestSiblings: false,
+        varsIgnorePattern: '_',
+      },
     ],
     'import/extensions': [
-        'error',
-        'ignorePackages',
-        {
+      'error',
+      'ignorePackages',
+      {
         js: 'never',
         jsx: 'never',
         ts: 'never',
         tsx: 'never',
-        },
+      },
     ],
     'react/jsx-filename-extension': [
-        'error',
-        {
+      'error',
+      {
         extensions: ['.jsx', '.tsx'],
-        },
+      },
     ],
     'react/jsx-props-no-spreading': [
-        'error',
-        {
+      'error',
+      {
         html: 'enforce',
         custom: 'enforce',
         explicitSpread: 'ignore',
-        },
+      },
+    ],
+    'react/function-component-definition': [
+      2,
+      { namedComponents: 'arrow-function' },
     ],
     'react/react-in-jsx-scope': 'off',
-    },
-    overrides: [
+  },
+  overrides: [
     {
-        'files': ['*.tsx'],
-        'rules': {
+      files: ['*.tsx'],
+      rules: {
         'react/prop-types': 'off',
-        },
+      },
     },
-    ],
-    settings: {
+  ],
+  settings: {
     'import/resolver': {
-        node: {
+      node: {
         paths: ['src'],
-        },
+      },
     },
-    },
+  },
 };
