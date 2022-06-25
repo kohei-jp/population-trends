@@ -1,24 +1,20 @@
 import { FC } from 'react';
-import logo from './logo.svg';
+import Header from 'components/pages/Header';
+import PrefectureChoices from 'containers/pages/PrefectureChoices';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import './App.css';
 
-const App: FC = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
-);
+const App: FC = () => {
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Header />
+        <PrefectureChoices />
+      </div>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

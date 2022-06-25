@@ -90,6 +90,9 @@ module.exports = {
       { namedComponents: 'arrow-function' },
     ],
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'arrow-body-style': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
   },
   overrides: [
     {
