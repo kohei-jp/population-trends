@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Header from 'components/pages/Header';
 import PrefectureChoices from 'containers/pages/PrefectureChoices';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import './App.css';
 
 const App: FC = () => {
@@ -12,6 +13,9 @@ const App: FC = () => {
       <div className="App">
         <Header />
         <PrefectureChoices />
+        {process.env.NODE_ENV === 'development' && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
       </div>
     </QueryClientProvider>
   );
