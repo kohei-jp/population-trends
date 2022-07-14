@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { PrefectureChoice } from 'types/resas';
+import { PrefectureChoice } from 'domains/resas/models/prefecture';
 import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';

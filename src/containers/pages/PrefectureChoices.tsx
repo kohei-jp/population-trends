@@ -1,28 +1,24 @@
-import { FC, useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { FC, useState, useEffect, useMemo } from 'react';
+import { useQuery, useQueries } from 'react-query';
 import PrefChoices from 'components/pages/PrefChoices';
-import { PrefecturesApiResponse, PrefectureChoice } from 'types/resas';
-
-const getPrefectures = async (): Promise<PrefecturesApiResponse> => {
-  const apiKey: string = process.env.REACT_APP_RESAS_API_KEY || '';
-  const res = await fetch(
-    'https://opendata.resas-portal.go.jp/api/v1/prefectures',
-    { headers: { 'x-api-key': apiKey } },
-  );
-
-  const json = (await res.json()) as PrefecturesApiResponse;
-
-  return json;
-};
+import { PrefectureChoice } from 'domains/resas/models/prefecture';
+import {
+  Population,
+  PrefecturePopulations,
+} from 'domains/resas/models/population';
+import getPrefectures from 'domains/resas/services/getPrefectures';
+import getPopulation from 'domains/resas/services/getPopulation';
 
 const PrefectureChoices: FC = () => {
   const { data: prefectures } = useQuery('users', getPrefectures);
-  const [prefectureChoices, setPrefectureChoices] = useState<
+  // 各都道府県とcheckedが含まれる
+  const [prefectureSelectors, setPrefectureSelectors] = useState<
     PrefectureChoice[]
   >([]);
+  // const [prefectureTrends, setPrefectureTrends] = useState<Population[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const choices: PrefectureChoice[] = prefectureChoices.map(
+    const choices: PrefectureChoice[] = prefectureSelectors.map(
       (pref) =>
         (pref.prefCode === Number(event.target.name) && {
           ...pref,
@@ -30,7 +26,7 @@ const PrefectureChoices: FC = () => {
         }) ||
         pref,
     );
-    setPrefectureChoices(choices);
+    setPrefectureSelectors(choices);
   };
 
   // APIの戻り値にcheckedカラムを持たせる
@@ -40,16 +36,38 @@ const PrefectureChoices: FC = () => {
         ...pref,
         checked: false,
       }));
-      setPrefectureChoices(choices);
+      setPrefectureSelectors(choices);
     }
   }, [prefectures]);
+
+  const queries = useQueries(
+    prefectureSelectors
+      .filter((p) => p.checked)
+      .map((pref) => {
+        return {
+          queryKey: ['population', pref.prefCode],
+          queryFn: () => getPopulation(pref.prefCode),
+          select: (populations: Population[]): PrefecturePopulations => ({
+            ...pref,
+            populations,
+          }),
+        };
+      }),
+  );
+  const isLoading = queries.some((query) => query.isLoading);
+  const trends = useMemo(
+    () => queries.map((query) => query.data || []),
+    [queries],
+  );
+  console.log(isLoading);
+  console.log(trends);
 
   return (
     <>
       <h2>都道府県</h2>
-      {prefectureChoices.length > 0 && (
+      {prefectureSelectors.length > 0 && (
         <PrefChoices
-          prefectures={prefectureChoices}
+          prefectures={prefectureSelectors}
           handleChange={handleChange}
         />
       )}

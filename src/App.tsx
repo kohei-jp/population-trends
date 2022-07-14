@@ -13,7 +13,7 @@ const App: FC = () => {
       <div className="App">
         <Header />
         <PrefectureChoices />
-        {process.env.NODE_ENV === 'development' && (
+        {process.env.NODE_ENV === 'development' && ( //
           <ReactQueryDevtools initialIsOpen={false} />
         )}
       </div>
