@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { PrefectureChoice } from 'types/resas';
+import { PrefectureChoice } from 'domains/resas/models/prefecture';
 import PrefChoice from 'components/organisms/PrefChoice';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
